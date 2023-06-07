@@ -7,4 +7,18 @@ const contactAddSchema = Joi.object({
     phone: Joi.string().required(),
   });
 
-  module.exports = contactAddSchema;
+  const updateSchemas = Joi.object({
+    name: Joi.string(),
+    email: Joi.string(),
+    phone: Joi.string(),
+  })
+  .or("name", "email", "phone")
+  .required();
+  
+  module.exports = 
+  {
+    contactAddSchema,
+  updateSchemas
+  }
+
+  
