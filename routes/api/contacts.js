@@ -3,6 +3,9 @@ const Contact = require('../../models/contact')
 const router = express.Router()
 const HttpError= require('../../helpers/HttpError')
 const {contactAddSchema, updateSchemas} = require('../../schemas/contactsSchemas')
+const authenticate = require('../../middlewares/authenticate');
+
+router.use(authenticate);
 
 router.get("/", async (req, res, next) => {
   try {
@@ -32,7 +35,8 @@ router.post("/", async (req, res, next) => {
     if (error) {
       throw new HttpError(400, "missing required name field");
     }
-    const result = await Contact.create(req.body);
+    const {_contactIdid: owner} = req.owner;
+    const result = await Contact.create(...req.body, owner);
     res.status(201).json(result);
   } catch (error) {
     next(error);
