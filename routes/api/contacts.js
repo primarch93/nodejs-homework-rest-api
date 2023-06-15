@@ -36,7 +36,7 @@ router.post("/", async (req, res, next) => {
       throw new HttpError(400, "missing required name field");
     }
     const {_contactIdid: owner} = req.owner;
-    const result = await Contact.create(...req.body, owner);
+    const result = await Contact.create({ ...req.body, owner });
     res.status(201).json(result);
   } catch (error) {
     next(error);
