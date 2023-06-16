@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-
 const handleMongooseError = require("../helpers/handleMongooseError");
 
 const userSchema = new Schema(
@@ -11,7 +10,7 @@ const userSchema = new Schema(
     email: {
       type: String,
       required: [true, "Email is required"],
-      match: /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/,
+      match: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
       unique: true,
     },
     password: {
@@ -25,6 +24,10 @@ const userSchema = new Schema(
       default: "starter",
     },
     token: String,
+    avatarURL: {
+      type: String,
+      required: true,
+    },
   },
   { versionKey: false, timestamps: true }
 );
